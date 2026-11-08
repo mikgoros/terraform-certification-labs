@@ -69,7 +69,7 @@ resource "aws_route_table_association" "public" {
 resource "aws_security_group" "web" {
   vpc_id      = aws_vpc.main.id
   name        = "${local.name_prefix}-web-sg"
-  description = "tráfico HTTP de entrada"
+  description = "Allow HTTP inbound traffic"
   ingress {
     from_port   = 80
     to_port     = 80

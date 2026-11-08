@@ -31,8 +31,8 @@ output "environment_summary" {
 
 output "admin_token_echo" {
   value       = var.admin_token
-  sensitive   = true
   description = "Demuestra la propagacion de sensibilidad"
+  sensitive   = true
 }
 
 output "web_url" {
