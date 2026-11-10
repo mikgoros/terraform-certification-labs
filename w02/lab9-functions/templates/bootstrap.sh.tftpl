@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -euo pipefail
+
+REGION="${region}"
+BUCKET="${bucket_name}"
+ENVIRONMENT="${environment}"
+
+echo "Arrancando en $REGION para el entorno $ENVIRONMENT"
+
+%{ for pkg in packages ~}
+dnf install -y ${pkg}
+%{ endfor ~}
+
+systemctl enable --now nginx
+echo "<h1>Servido por Terraform</h1>" > /usr/share/nginx/html/index.html
+
+%{ if enable_monitoring ~}
+dnf install -y amazon-cloudwatch-agent
+%{ else ~}
+echo "Monitorización detallada desactivada en $ENVIRONMENT"
+%{ endif ~}
